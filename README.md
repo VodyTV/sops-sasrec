@@ -10,6 +10,7 @@ This code a rebuild of this repo https://github.com/kang205/SASRec
 
 ## Paper
 TODO: Link to paper
+
 TODO: Link to video
 
 ## How to Run
