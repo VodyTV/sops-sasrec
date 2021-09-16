@@ -1,5 +1,5 @@
 env
-__pycache__
+*__pycache__
 *.egg-info
 *.pt
 *.log
@@ -8,3 +8,5 @@ __pycache__
 .coverage
 results/
 *ipynb_checkpoints
+raw_data
+data

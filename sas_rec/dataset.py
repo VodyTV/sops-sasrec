@@ -62,6 +62,8 @@ def data_partition_ratings(fname, seed=101, holdout_n=1, shuffle=False):
         u, i, r = line.rstrip().split(' ')
         u = int(u)
         i = int(i)
+        if i == 0:
+            print(line)
         r = float(r)
         usernum = max(u, usernum)
         itemnum = max(i, itemnum)
@@ -210,7 +212,7 @@ class SasRecModSequence(Sequence):
                 idx -= 1
                 if idx == -1:
                     break
-
+            self.uir[user][0] = 0
             user_sequences.append(user_seq_items)
             user_seq_ratings = [self.uir[user][item] for item in user_seq_items]
             user_ratings.append(user_seq_ratings)
