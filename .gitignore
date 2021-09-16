@@ -8,3 +8,5 @@ __pycache__
 .coverage
 results/
 *ipynb_checkpoints
+raw_data
+data
