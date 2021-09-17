@@ -1,18 +1,20 @@
 # Dataset
-from collections import defaultdict
 import math
+from collections import defaultdict
 
 import numpy as np
 import tensorflow as tf
-from tensorflow.keras.utils import to_categorical
-from tensorflow.keras.backend import cast, tile
 from tensorflow import expand_dims
+from tensorflow.keras.backend import cast, tile
 from tensorflow.keras.utils import Sequence
+from tensorflow.keras.utils import to_categorical
 
 
 def data_partition(fname):
     """
-    Author function for loading and arranging datasets
+    Original author function for loading and arranging datasets.
+
+    Adapted from https://github.com/kang205/SASRec/blob/master/util.py
     """
     usernum = 0
     itemnum = 0
@@ -47,7 +49,9 @@ def data_partition(fname):
 
 def data_partition_ratings(fname, seed=101, holdout_n=1, shuffle=False):
     """
-    Author function for loading and arranging datasets
+    Extended author function for loading and arranging datasets with ratings
+
+    Adapted from https://github.com/kang205/SASRec/blob/master/util.py
     """
     usernum = 0
     itemnum = 0
@@ -95,15 +99,21 @@ def data_partition_ratings(fname, seed=101, holdout_n=1, shuffle=False):
     return [user_train, user_valid, user_test, usernum, itemnum, user_item_rating]
 
 
-def random_neq(l, r, s):
-    t = np.random.randint(l, r)
-    while t in s:
-        t = np.random.randint(l, r)
+def random_neg_item(start, end, sequence):
+    """
+    Random negative item that is not in `sequence`
+    """
+    t = np.random.randint(start, end)
+    while t in sequence:
+        t = np.random.randint(start, end)
     return t
 
 
 class SasRecSequence(Sequence):
+    """
+    Sequence class for loading batched data into the base SASRec model
 
+    """
     def __init__(self, users, num_users, num_items, batch_size, max_sequence_len,
                  shuffle_seq=False, seed=101):
         self.users = users
@@ -149,7 +159,7 @@ class SasRecSequence(Sequence):
                 user_seq[idx] = i
                 pos[idx] = nxt
                 if nxt != 0:
-                    neg[idx] = random_neq(1, self.num_items + 1, user_history)
+                    neg[idx] = random_neg_item(1, self.num_items + 1, user_history)
                 nxt = i
                 idx -= 1
                 if idx == -1:
@@ -176,7 +186,7 @@ class SasRecSequence(Sequence):
 
 class SasRecModSequence(Sequence):
     """
-    Sets up sasrec for the modified training paradigm
+    Sets up sasrec for the modified training paradigm, that includes ratings
 
     X is the same
     Y is last n items with their ratings
@@ -229,10 +239,11 @@ class SasRecModSequence(Sequence):
 
 class SasRecJLSequence(Sequence):
     """
-    Sets up sasrec for the modified training paradigm
+    Sets up sasrec for the modified training paradigm with two lossess
 
     X is the same
     Y is last n items with their ratings
+    Z is the sample weights
     """
     def __init__(self, users, uir_map, num_users, num_items,
                  batch_size, max_sequence_len,
@@ -304,6 +315,7 @@ class SasRecJLSequence(Sequence):
         # return
         # x : batch_users, user_sequences, ratings
         # y : one-hot ratings
+        # z : sample weights
         return ((np.array(batch_users, dtype='int32'), np.array(user_sequences), positions),
                 (to_categorical(user_ratings, num_classes=6)),
                 (sample_weights))
