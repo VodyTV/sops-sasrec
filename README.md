@@ -2,9 +2,9 @@
 ### An Analysis of Sequential Recommendation Datasets ###
 ![header_sequence_image](https://user-images.githubusercontent.com/24967046/133691042-17c1b127-1b64-4363-8919-1c0fa39e4543.png)
 
-This repo contains our re-implementation and extension of SASRec [CITE] as well as code to download, process and format the datasets we use in our paper.
+This repo contains our re-implementation and extension of SASRec [[1]](#1) as well as code to download, process and format the datasets we use in our paper.
 
-In order to get the data, run the notebook [link] and processed datasets will be saved into a `data/` directory. 
+In order to get the data, run the [notebook](https://github.com/VodyTV/sops-sasrec/blob/bad7982f67afeefb7e7bd4926bc460b8912e1025/notebooks/data_loading.ipynb) and processed datasets will be saved into a `data/` directory. 
 
 This code a rebuild of this repo https://github.com/kang205/SASRec
 
@@ -14,6 +14,11 @@ TODO: Link to paper
 TODO: Link to video
 
 ## How to Run
+Install the requirements.
+
+Run the notebook to download and process the datasets.
+
+In the environment, run the experiments with the commands below.
 
 ### Params
 
@@ -50,6 +55,7 @@ Joint loss experiment on movielens
 python -m sas_rec.joint_loss_experiment --f-name 'ml-1m-rating' --shuffle-sequence False --batch-size 128 --seed 101 --num-epochs 20 --output-metrics-path 'results/experiment_results.txt'
 ```
 
-## Citations
 
+## References
+<a id="1">[1]</a> 
 SASRec https://arxiv.org/abs/1808.09781
