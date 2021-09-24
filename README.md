@@ -11,7 +11,7 @@ This code a rebuild of this repo https://github.com/kang205/SASRec
 ## Paper
 TODO: Link to paper
 
-TODO: Link to video
+[Teaser Video](https://perspectives-ws.github.io/2021/videos/#sequence-or-pseudo-sequence-an-analysis-of-sequential-recommendation-datasets)
 
 ## How to Run
 Install the requirements.
