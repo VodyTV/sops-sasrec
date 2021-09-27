@@ -9,7 +9,7 @@ In order to get the data, run the [notebook](https://github.com/VodyTV/sops-sasr
 This code a rebuild of this repo https://github.com/kang205/SASRec
 
 ## Paper
-TODO: Link to paper
+[Link to paper](http://ceur-ws.org/Vol-2955/paper8.pdf)
 
 [Teaser Video](https://perspectives-ws.github.io/2021/videos/#sequence-or-pseudo-sequence-an-analysis-of-sequential-recommendation-datasets)
 
